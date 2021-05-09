@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.awt.*;
 
 import GUI.Board;
 import GUI.SideBar;
@@ -15,11 +16,6 @@ public class App {
 
     private void GUI(){
         panel();
-
-        // frame.add(new JButton());
-        // frame.add(sidebarLeft, BorderLayout.WEST);
-        // frame.add(sidebarRight, BorderLayout.EAST);
-
         frame();
     }
 
@@ -36,9 +32,11 @@ public class App {
     }
 
     private void panel(){
-        panel = new Board("hello world");
-        sidebarRight = new SideBar();
-        sidebarLeft = new SideBar();
+        JPanel background = new JPanel();
+        background.setBackground(Color.GRAY);
+
+        background.add(new Board("text"));
+        panel = background;
     }
 
     
