@@ -1,24 +1,33 @@
 package GUI;
 
 import javax.swing.JButton;
+
+import GamePeaces.Piece;
+
 import java.awt.*;
 
 public class Tile extends JButton {
-    TileColor color;
+    private TileColor color;
+    private Piece piece;
 
-    Tile(TileColor color){
+    Tile(TileColor color, Piece piece){
         this.color = color;
-        // setMinimumSize(new Dimension(30, 30));
-        // setMaximumSize(new Dimension(30, 30));
-        // setPreferredSize(new Dimension(30, 30));
-        if (color.equals(TileColor.DARK))
-            setBackground(Color.DARK_GRAY);
-        else 
-            setBackground(Color.LIGHT_GRAY);
+        this.piece = piece;
+
+        if (color.equals(TileColor.DARK)) setBackground(Color.DARK_GRAY);
+        else                              setBackground(Color.LIGHT_GRAY);
     }
 
-    public TileColor getColor() {
+    public TileColor getTileColor() {
         return color;
+    }
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
     }
     
 }
