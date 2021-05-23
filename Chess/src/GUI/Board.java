@@ -12,7 +12,9 @@ public class Board extends JPanel {
 
 
     public Board(String text){
-       setBackground(Color.green);
+       setOpaque(true);
+       
+       setBackground(Color.red);
        setPreferredSize(new Dimension(800, 800));
        setLayout(new GridLayout(8,8));
 
@@ -89,6 +91,7 @@ public class Board extends JPanel {
                     } 
 
                     tile[i][j].setLabel(name);
+                    tile[i][j].setForeground(Color.BLACK);
                 }
 
             }
