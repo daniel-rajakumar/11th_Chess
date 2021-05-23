@@ -3,6 +3,7 @@ package GUI;
 import javax.swing.JButton;
 
 import GamePeaces.Piece;
+import GamePeaces.Piece1;
 
 import java.awt.*;
 
@@ -14,8 +15,8 @@ public class Tile extends JButton {
         this.color = color;
         this.piece = piece;
 
-        if (color.equals(TileColor.DARK)) setBackground(Color.DARK_GRAY);
-        else                              setBackground(Color.LIGHT_GRAY);
+        if (color.equals(TileColor.DARK)) setBackground(Color.decode("#EEEED2"));
+        else                              setBackground(Color.decode("#769656"));
     }
 
     public TileColor getTileColor() {
@@ -28,6 +29,11 @@ public class Tile extends JButton {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
+    }
+
+    public void setPiece(Piece piece, Piece.Color color) {
+        this.piece = piece;
+        this.piece.setColor(color);
     }
     
 }
