@@ -15,8 +15,17 @@ public class Tile extends JButton {
         this.color = color;
         this.piece = piece;
 
+        setOpaque(true);
+        setBorderPainted(false);
+
+        // if (color.equals(TileColor.DARK)) getRootPane().setBackground(Color.decode("#EEEED2"));
+        // else                              getRootPane().setBackground(Color.decode("#769656"));
+
+
         if (color.equals(TileColor.DARK)) setBackground(Color.decode("#EEEED2"));
         else                              setBackground(Color.decode("#769656"));
+
+
     }
 
     public TileColor getTileColor() {
