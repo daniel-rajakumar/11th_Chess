@@ -2,8 +2,7 @@ package GUI;
 
 import javax.swing.JButton;
 
-import GamePeaces.Piece;
-import GamePeaces.Piece1;
+import Assets.*;
 
 import java.awt.*;
 
@@ -30,13 +29,11 @@ public class Tile extends JButton {
         return piece;
     }
 
-    public void setPiece(Piece piece) {
-        this.piece = piece;
+    public void setPiece(PieceType type) {
+        piece.setType(type);
     }
 
-    public void setPiece(Piece piece, Piece.Color color) {
-        this.piece = piece;
-        this.piece.setColor(color);
+    public void setPiece(PieceType type, PieceColor color) {
+        this.piece = new Piece(type, color);
     }
-    
 }
