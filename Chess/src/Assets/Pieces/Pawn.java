@@ -6,6 +6,8 @@ import Assets.PieceType;
 
 public class Pawn extends Piece {
 
+    private final PieceType type = PieceType.PAWN; 
+
     public Pawn(PieceColor color) {
         super(color);
     }
