@@ -4,11 +4,10 @@ import Assets.Piece;
 import Assets.PieceColor;
 import Assets.PieceType;
 
-public class Pawn extends Piece {
+public class Queen extends Piece {
+    private final PieceType type = PieceType.QUEEN; 
 
-    private final PieceType type = PieceType.PAWN; 
-
-    public Pawn(PieceColor color) {
+    public Queen(PieceColor color) {
         super(color);
     }
     
