@@ -82,18 +82,17 @@ public class Board extends JPanel {
                     if (tile[i][j].getPiece()
                                 .getColor()
                                 .equals(PieceColor.BLACK)){
-                        name = "B_" + name;
+                        tile[i][j].setForeground(Color.BLACK);
                     } 
 
                     // set up white pieces
                     if (tile[i][j].getPiece()
                                 .getColor()
                                 .equals(PieceColor.WHITE)){
-                        name = "W_" + name;
+                        tile[i][j].setForeground(Color.BLUE);
                     } 
 
                     tile[i][j].setLabel(name);
-                    tile[i][j].setForeground(Color.BLACK);
                 }
 
             }
