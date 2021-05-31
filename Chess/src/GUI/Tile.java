@@ -29,11 +29,8 @@ public class Tile extends JButton {
         return piece;
     }
 
-    public void setPiece(PieceType type) {
-        piece.setType(type);
+    public void setPiece(Piece piece) {
+        this.piece = piece;
     }
 
-    public void setPiece(PieceType type, PieceColor color) {
-        this.piece = new Piece(type, color);
-    }
 }
