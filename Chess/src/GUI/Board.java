@@ -7,6 +7,7 @@ import javax.swing.*;
 import Assets.Piece;
 import Assets.PieceColor;
 import Assets.PieceType;
+import Assets.Pieces.Pawn;
 
 public class Board extends JPanel {
     private Tile[][] tile = new Tile[8][8];
@@ -51,24 +52,24 @@ public class Board extends JPanel {
         PieceColor black = PieceColor.BLACK;
         PieceColor white = PieceColor.WHITE;
 
-        tile[0][0].setPiece(PieceType.ROOK, black);
-        tile[0][1].setPiece(PieceType.KNIGHT, black);
-        tile[0][2].setPiece(PieceType.BISHOP, black);
-        tile[0][3].setPiece(PieceType.KING, black);
-        tile[0][4].setPiece(PieceType.QUEEN, black);
-        tile[0][5].setPiece(PieceType.BISHOP, black);
-        tile[0][6].setPiece(PieceType.KNIGHT, black);
-        tile[0][7].setPiece(PieceType.ROOK, black);
-        for (int i = 0; i < 8; i ++) tile[1][i].setPiece(PieceType.PAWN, black);
-        for (int i = 0; i < 8; i ++) tile[6][i].setPiece(PieceType.PAWN, white);
-        tile[7][0].setPiece(PieceType.ROOK, white);
-        tile[7][1].setPiece(PieceType.KNIGHT, white);
-        tile[7][2].setPiece(PieceType.BISHOP, white);
-        tile[7][3].setPiece(PieceType.KING, white);
-        tile[7][4].setPiece(PieceType.QUEEN, white);
-        tile[7][5].setPiece(PieceType.BISHOP, white);
-        tile[7][6].setPiece(PieceType.KNIGHT, white);
-        tile[7][7].setPiece(PieceType.ROOK, white);
+        // tile[0][0].setPiece(PieceType.ROOK, black);
+        // tile[0][1].setPiece(PieceType.KNIGHT, black);
+        // tile[0][2].setPiece(PieceType.BISHOP, black);
+        // tile[0][3].setPiece(PieceType.KING, black);
+        // tile[0][4].setPiece(PieceType.QUEEN, black);
+        // tile[0][5].setPiece(PieceType.BISHOP, black);
+        // tile[0][6].setPiece(PieceType.KNIGHT, black);
+        // tile[0][7].setPiece(PieceType.ROOK, black);
+        for (int i = 0; i < 8; i ++) tile[1][i].setPiece(new Pawn(black));
+        for (int i = 0; i < 8; i ++) tile[6][i].setPiece(new Pawn(white));
+        // tile[7][0].setPiece(PieceType.ROOK, white);
+        // tile[7][1].setPiece(PieceType.KNIGHT, white);
+        // tile[7][2].setPiece(PieceType.BISHOP, white);
+        // tile[7][3].setPiece(PieceType.KING, white);
+        // tile[7][4].setPiece(PieceType.QUEEN, white);
+        // tile[7][5].setPiece(PieceType.BISHOP, white);
+        // tile[7][6].setPiece(PieceType.KNIGHT, white);
+        // tile[7][7].setPiece(PieceType.ROOK, white);
 
     }
 
@@ -76,7 +77,7 @@ public class Board extends JPanel {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (tile[i][j].getPiece() != null){
-                    String name = tile[i][j].getPiece().getType() + "";
+                    String name = tile[i][j].getPiece().getClass().getSimpleName() + "";
 
                     // set up black pieces
                     if (tile[i][j].getPiece()
