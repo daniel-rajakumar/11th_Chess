@@ -68,6 +68,11 @@ public class Board extends JPanel {
         tile[7][5].setPiece(Piece.BISHOP, white);
         tile[7][6].setPiece(Piece.KNIGHT, white);
         tile[7][7].setPiece(Piece.ROOK, white);
+        System.out.println("Hello world");
+
+        
+
+        // animation cursor hahahahha
 
     }
 
@@ -92,6 +97,8 @@ public class Board extends JPanel {
 
                     tile[i][j].setLabel(name);
                     tile[i][j].setForeground(Color.BLACK);
+
+
                 }
 
             }
