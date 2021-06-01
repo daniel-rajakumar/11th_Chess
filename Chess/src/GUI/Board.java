@@ -31,15 +31,15 @@ public class Board extends JPanel {
     void draw(){
         setBoard();
         addBoard();
-        pieceSetup();
-        printPieces();
+        // pieceSetup();
+        // printPieces();
     }
 
     void setBoard(){
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
-                if ((i+j) % 2 == 0) tile[i][j] = new Tile(TileColor.LIGHT, null);
-                else                tile[i][j] = new Tile(TileColor.DARK, null);
+                if ((i+j) % 2 == 0) tile[i][j] = new Tile(i, j, TileColor.LIGHT, null);
+                else                tile[i][j] = new Tile(i, j, TileColor.DARK, null);
             }
         }
 
@@ -105,7 +105,14 @@ public class Board extends JPanel {
 
         }
 
+
+
     }
+
+    public Tile[][] getTile() {
+        return tile;
+    }
+    
 
 
 
