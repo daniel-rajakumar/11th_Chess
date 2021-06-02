@@ -1,6 +1,8 @@
 package GUI;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -33,6 +35,7 @@ public class Board extends JPanel {
         addBoard();
         pieceSetup();
         printPieces();
+        tileAction();
     }
 
     void setBoard(){
@@ -77,7 +80,6 @@ public class Board extends JPanel {
         tile[7][7].setPiece(new Rook(white));
 
         tile[1][1].getPiece().move(5, 5);
-
     }
 
     void printPieces(){
@@ -106,9 +108,14 @@ public class Board extends JPanel {
             }
 
         }
+    }
 
-
-
+    void tileAction(){
+        for (int i = 0; i < tile.length; i++){
+            for (int j = 0; j < tile.length; j++){
+                tile[i][j].addActionListener(new click());
+            }
+        }
     }
 
     
@@ -116,5 +123,22 @@ public class Board extends JPanel {
 
 
 }
+
+class click implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Tile button = (Tile) e.getSource();
+
+        if (button.getPiece() == null) return;
+
+        int x = button.getPiece().getX();
+        int y = button.getPiece().getY();
+        System.out.println("( " + x + ", " + y + " )");
+    }
+
+    
+}
+
 
 
