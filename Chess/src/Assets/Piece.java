@@ -17,9 +17,9 @@ public class Piece {
     public PieceColor getColor() { return color; }
 
     public void move(int new_x, int new_y){
-        // Piece piece = Board.getTile()[this.x][this.y].getPiece();
-        // Board.getTile()[new_x][new_y].setPiece(piece); 
-        // Board.getTile()[this.x][this.y].setPiece(null); 
+        Piece piece = Board.tile[this.x][this.y].getPiece();
+        Board.tile[this.x][this.y].setPiece(null); 
+        Board.tile[new_x][new_y].setPiece(piece); 
     }
 
     public void setXY(int x, int y) {
