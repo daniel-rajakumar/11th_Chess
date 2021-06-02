@@ -79,12 +79,12 @@ public class Board extends JPanel {
         tile[7][6].setPiece(new Knight(white));
         tile[7][7].setPiece(new Rook(white));
 
-        tile[1][1].getPiece().move(5, 5);
     }
 
-    void printPieces(){
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+    public static void printPieces(){
+        System.out.println("hello");
+        for (int i = 0; i < tile.length; i++) {
+            for (int j = 0; j < tile[i].length; j++) {
                 if (tile[i][j].getPiece() != null){
                     String name = tile[i][j].getPiece().getClass().getSimpleName() + "";
 
@@ -103,7 +103,10 @@ public class Board extends JPanel {
                     } 
 
                     tile[i][j].setLabel(name);
+                } else {
+                    tile[i][j].setLabel("");
                 }
+
 
             }
 
@@ -135,6 +138,9 @@ class click implements ActionListener {
         int x = button.getPiece().getX();
         int y = button.getPiece().getY();
         System.out.println("( " + x + ", " + y + " )");
+
+        Board.tile[x][y].getPiece().move(x - 1, y);
+        Board.printPieces();
     }
 
     
