@@ -19,8 +19,7 @@ public class Tile extends JButton {
 
         setOpaque(true);
         setBorderPainted(false);
-
-        changeTileColor(color);
+        setTileColor(color);
     }
 
     public void setColor(TileColor color) {
@@ -38,13 +37,11 @@ public class Tile extends JButton {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
-
         if (piece == null)  return;
-
         this.piece.setXY(x, y);
     }
 
-    public void changeTileColor(TileColor color){
+    public void setTileColor(TileColor color){
         this.color = color;
         super.setBackground(color.getColor());
     }
