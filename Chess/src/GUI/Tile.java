@@ -34,10 +34,10 @@ public class Tile extends JButton {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
-        this.piece.setXY(x, y);
-    }
 
-    public int getX() { return x; }
-    public int getY() { return y; }
+        if (piece != null)  {
+            this.piece.setXY(x, y);
+        }
+    }
 
 }

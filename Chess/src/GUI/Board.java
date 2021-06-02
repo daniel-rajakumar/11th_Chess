@@ -15,7 +15,7 @@ import Assets.Pieces.Queen;
 import Assets.Pieces.Rook;
 
 public class Board extends JPanel {
-    private Tile[][] tile = new Tile[8][8];
+    public static Tile[][] tile = new Tile[8][8];
 
 
     public Board(String text){
@@ -31,8 +31,8 @@ public class Board extends JPanel {
     void draw(){
         setBoard();
         addBoard();
-        // pieceSetup();
-        // printPieces();
+        pieceSetup();
+        printPieces();
     }
 
     void setBoard(){
@@ -76,6 +76,8 @@ public class Board extends JPanel {
         tile[7][6].setPiece(new Knight(white));
         tile[7][7].setPiece(new Rook(white));
 
+        tile[1][1].getPiece().move(5, 5);
+
     }
 
     void printPieces(){
@@ -109,9 +111,6 @@ public class Board extends JPanel {
 
     }
 
-    public Tile[][] getTile() {
-        return tile;
-    }
     
 
 
