@@ -139,8 +139,8 @@ class click implements ActionListener {
         int y = button.getPiece().getY();
         System.out.println("( " + x + ", " + y + " )");
 
-        Board.tile[x][y].getPiece().move(x - 1, y);
-        Board.printPieces();
+        // Board.tile[x][y].getPiece().move(x - 1, y);
+        Board.tile[x -1][y].setTileColor(TileColor.LEGAL);
     }
 
     
