@@ -20,9 +20,13 @@ public class Tile extends JButton {
         setOpaque(true);
         setBorderPainted(false);
 
-        if (color.equals(TileColor.DARK)) setBackground(Color.decode("#EEEED2"));
-        else                              setBackground(Color.decode("#769656"));
+        changeTileColor(color);
     }
+
+    public void setColor(TileColor color) {
+        this.color = color;
+    }
+
 
     public TileColor getTileColor() {
         return color;
@@ -35,11 +39,16 @@ public class Tile extends JButton {
     public void setPiece(Piece piece) {
         this.piece = piece;
 
-        if (piece != null)  {
-            this.piece.setXY(x, y);
-        }
+        if (piece == null)  return;
+
+        this.piece.setXY(x, y);
     }
 
-    
+    public void changeTileColor(TileColor color){
+        this.color = color;
+        super.setBackground(color.getColor());
+    }
 
+
+    
 }
