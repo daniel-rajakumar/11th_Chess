@@ -113,6 +113,11 @@ public class Board extends JPanel {
         }
     }
 
+    public void repaintBoard(){
+
+    }
+
+
     void tileAction(){
         for (int i = 0; i < tile.length; i++){
             for (int j = 0; j < tile.length; j++){
@@ -140,7 +145,9 @@ class click implements ActionListener {
         System.out.println("( " + x + ", " + y + " )");
 
         // Board.tile[x][y].getPiece().move(x - 1, y);
-        Board.tile[x -1][y].setTileColor(TileColor.LEGAL);
+        Board.tile[x -1][y].setTileColor(TileColor.LEGAL(124));
+        Board.tile[x -1][y].setTileColor(TileColor.LIGHT("hello"));
+        Board.tile[x -1][y].setTileColor(TileColor.DARK(12.3));
     }
 
     
