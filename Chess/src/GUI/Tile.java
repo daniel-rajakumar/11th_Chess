@@ -9,13 +9,13 @@ import java.awt.*;
 public class Tile extends JButton {
     private TileColor color;
     private Piece piece;
-    private int x, y;
+    private int tile_x, tile_y;
 
-    Tile(int x, int y, TileColor color, Piece piece){
+    Tile(int tile_x, int tile_y, TileColor color, Piece piece){
         this.color = color;
         this.piece = piece;
-        this.x = x;
-        this.y = y;
+        this.tile_x = tile_x;
+        this.tile_y = tile_y;
 
         setOpaque(true);
         setBorderPainted(false);
@@ -38,8 +38,14 @@ public class Tile extends JButton {
     public void setPiece(Piece piece) {
         this.piece = piece;
         if (piece == null)  return;
-        this.piece.setXY(x, y);
+        this.piece.setXY(tile_x, tile_y);
     }
+
+
+
+    public int getTile_x() { return tile_x; }
+    public int getTile_y() { return tile_y; }
+
 
     public void setTileColor(TileColor color){
         this.color = color;

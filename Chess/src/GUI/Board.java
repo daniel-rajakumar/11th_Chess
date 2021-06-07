@@ -135,48 +135,49 @@ public class Board extends JPanel {
 class click implements ActionListener {
     ActionEvent e;
     static boolean whiteTurn = true;
+    static boolean showLegalMove = true;
     Tile button;
     PieceColor pieceColor;
+    TileColor tileColor;
     int x, y;
 
     @Override
     public void actionPerformed(ActionEvent e) {
         this.e = e;
         this.button = (Tile) e.getSource();
+        this.tileColor = button.getTileColor();
+        this.x = button.getTile_x();
+        this.y = button.getTile_y();
         this.pieceColor = button.getPiece().getColor();
-        this.x = button.getPiece().getX();
-        this.y = button.getPiece().getY();
 
-        if (button.getPiece() == null) return;
 
-        move();
+        if (showLegalMove)  showLegalMove();
+        else                move();
+
+        // if (button.getPiece() == null) return;
 
     }
 
     
 
-
-
+    public void showLegalMove(){
+        Board.tile[x - 1][y].setTileColor(TileColor.LEGAL);
+        showLegalMove = false;
+    }
 
 
 
     public void move(){
-        int x = button.getPiece().getX();
-        int y = button.getPiece().getY();
-        // System.out.println("( " + x + ", " + y + " )");
-
         if      ( whiteTurn && pieceColor.equals(PieceColor.WHITE)) moveWhite();
         else if (!whiteTurn && pieceColor.equals(PieceColor.BLACK)) moveBlack();
 
         Board.printPieces();
-
-        whiteTurn = !pieceColor.equals(PieceColor.WHITE);
-
     }
 
     void moveWhite(){
         // Board.tile[x][y].getPiece().move(x - 1, y);
-        Board.tile[x - 1][y].setTileColor(TileColor.LEGAL);
+        if (tileColor.equals(TileColor.LEGAL))
+            Board.tile[x][y].getPiece().move(x - 1, y);
     }
 
     void moveBlack(){
