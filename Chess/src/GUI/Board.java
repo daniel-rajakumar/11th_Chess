@@ -104,6 +104,9 @@ public class Board extends JPanel {
                     tile[i][j].setLabel("");
                 }
 
+                if ((i+j) % 2 == 0) tile[i][j].setTileColor(TileColor.LIGHT);
+                else                tile[i][j].setTileColor(TileColor.DARK);
+
 
             }
 
@@ -159,13 +162,13 @@ class Click implements ActionListener {
 
 
         if (Board.getPreviousPiece() != null){
-            this.piece = Board.getPreviousPiece();
-            this.pieceColor = Board.getPreviousPiece().getColor();
-            // System.out.println("previous piece " + Board.getPreviousPiece().getClass().getSimpleName());
-            if (tileColor.equals(TileColor.LEGAL))
+            if (tileColor.equals(TileColor.LEGAL)){
+                this.piece = Board.getPreviousPiece();
+                this.pieceColor = Board.getPreviousPiece().getColor();
                 move();
+            }
         } else {
-            showLegalMove();
+                showLegalMove();
         }
 
 
@@ -179,8 +182,9 @@ class Click implements ActionListener {
     
 
     public void showLegalMove(){
+        if (button.getPiece() == null) return;
 
-        if (whiteTurn && button.getPiece().getColor().equals(PieceColor.BLACK)) return;
+        if ( whiteTurn && button.getPiece().getColor().equals(PieceColor.BLACK)) return;
         if (!whiteTurn && button.getPiece().getColor().equals(PieceColor.WHITE)) return;
 
         if (whiteTurn){ 
@@ -210,6 +214,7 @@ class Click implements ActionListener {
         Board.printPieces();
         Board.setPreviousPiece(null);
         whiteTurn = !whiteTurn;
+
     }
 
     void print(){
