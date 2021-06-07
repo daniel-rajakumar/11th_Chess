@@ -137,18 +137,20 @@ class click implements ActionListener {
     static boolean whiteTurn = true;
     Tile button;
     PieceColor pieceColor;
+    int x, y;
 
     @Override
     public void actionPerformed(ActionEvent e) {
         this.e = e;
         this.button = (Tile) e.getSource();
         this.pieceColor = button.getPiece().getColor();
+        this.x = button.getPiece().getX();
+        this.y = button.getPiece().getY();
 
         if (button.getPiece() == null) return;
 
         move();
 
-        whiteTurn = !pieceColor.equals(PieceColor.WHITE);
     }
 
     
@@ -163,14 +165,23 @@ class click implements ActionListener {
         int y = button.getPiece().getY();
         // System.out.println("( " + x + ", " + y + " )");
 
-        if (whiteTurn && pieceColor.equals(PieceColor.WHITE))
-            Board.tile[x][y].getPiece().move(x - 1, y);
-
-        else if (!whiteTurn && pieceColor.equals(PieceColor.BLACK))
-            Board.tile[x][y].getPiece().move(x + 1, y);
+        if      ( whiteTurn && pieceColor.equals(PieceColor.WHITE)) moveWhite();
+        else if (!whiteTurn && pieceColor.equals(PieceColor.BLACK)) moveBlack();
 
         Board.printPieces();
 
+        whiteTurn = !pieceColor.equals(PieceColor.WHITE);
+
+    }
+
+    void moveWhite(){
+        // Board.tile[x][y].getPiece().move(x - 1, y);
+        Board.tile[x - 1][y].setTileColor(TileColor.LEGAL);
+    }
+
+    void moveBlack(){
+        // Board.tile[x][y].getPiece().move(x + 1, y);
+        Board.tile[x + 1][y].setTileColor(TileColor.LEGAL);
     }
 
 }
