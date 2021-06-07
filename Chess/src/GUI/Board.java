@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.annotation.processing.SupportedSourceVersion;
 import javax.swing.*;
 
 import Assets.Piece;
@@ -161,7 +162,8 @@ class Click implements ActionListener {
             this.piece = Board.getPreviousPiece();
             this.pieceColor = Board.getPreviousPiece().getColor();
             // System.out.println("previous piece " + Board.getPreviousPiece().getClass().getSimpleName());
-            move();
+            if (tileColor.equals(TileColor.LEGAL))
+                move();
         } else {
             showLegalMove();
         }
@@ -170,46 +172,53 @@ class Click implements ActionListener {
 
 
        if (button.getPiece() == null) return;
-         Board.setPreviousPiece(button.getPiece());
+
+        // Board.setPreviousPiece(button.getPiece());
     }
 
     
 
     public void showLegalMove(){
-        Board.tile[x - 1][y].setTileColor(TileColor.LEGAL);
-        Board.tile[x - 2][y].setTileColor(TileColor.LEGAL);
-        showLegalMove = false;
+
+        if (whiteTurn && button.getPiece().getColor().equals(PieceColor.BLACK)) return;
+        if (!whiteTurn && button.getPiece().getColor().equals(PieceColor.WHITE)) return;
+
+        if (whiteTurn){ 
+            Board.tile[x - 1][y].setTileColor(TileColor.LEGAL);
+            Board.tile[x - 2][y].setTileColor(TileColor.LEGAL);
+        } else {
+            Board.tile[x + 1][y].setTileColor(TileColor.LEGAL);
+            Board.tile[x + 2][y].setTileColor(TileColor.LEGAL);
+        }
+
+        Board.setPreviousPiece(button.getPiece());
     }
 
 
 
     public void move(){
+        print();
         // System.out.println("pre_piececolor: " + pieceColor);
         // if      ( whiteTurn && pieceColor.equals(PieceColor.WHITE)) moveWhite();
         // else if (!whiteTurn && pieceColor.equals(PieceColor.BLACK)) moveBlack();
 
 
         if (tileColor.equals(TileColor.LEGAL)){
-            System.out.println("two");
             piece.move(x, y);
         }
 
         Board.printPieces();
+        Board.setPreviousPiece(null);
+        whiteTurn = !whiteTurn;
     }
 
-    void moveWhite(){
-        // Board.tile[x][y].getPiece().move(x - 1, y);
-        System.out.println("tilecolor: " + tileColor);
-        if (tileColor.equals(TileColor.LEGAL)){
-            System.out.println("two");
-            // Board.tile[0][0].getPiece().move(5, 5);
-            piece.move(x, y);
-        }
-    }
+    void print(){
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n");
+        System.out.println("whiteturn: " + whiteTurn);
+        System.out.println("prv_piece: " + piece.getClass().getSimpleName());
+        System.out.println("prev_color: " + pieceColor);
+        System.out.println("\n\n");
 
-    void moveBlack(){
-        // Board.tile[x][y].getPiece().move(x + 1, y);
-        Board.tile[x + 1][y].setTileColor(TileColor.LEGAL);
     }
 
     public Piece getPiece() { return piece; }
