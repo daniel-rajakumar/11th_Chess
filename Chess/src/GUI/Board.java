@@ -82,7 +82,7 @@ public class Board extends JPanel {
     }
 
     public static void printPieces(){
-        System.out.println("hello");
+        // System.out.println("hello");
         for (int i = 0; i < tile.length; i++) {
             for (int j = 0; j < tile[i].length; j++) {
                 if (tile[i][j].getPiece() != null){
@@ -133,24 +133,46 @@ public class Board extends JPanel {
 }
 
 class click implements ActionListener {
+    ActionEvent e;
+    static boolean whiteTurn = true;
+    Tile button;
+    PieceColor pieceColor;
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Tile button = (Tile) e.getSource();
+        this.e = e;
+        this.button = (Tile) e.getSource();
+        this.pieceColor = button.getPiece().getColor();
 
         if (button.getPiece() == null) return;
 
-        int x = button.getPiece().getX();
-        int y = button.getPiece().getY();
-        System.out.println("( " + x + ", " + y + " )");
+        move();
 
-        // Board.tile[x][y].getPiece().move(x - 1, y);
-        Board.tile[x -1][y].setTileColor(TileColor.LEGAL(124));
-        Board.tile[x -1][y].setTileColor(TileColor.LIGHT("hello"));
-        Board.tile[x -1][y].setTileColor(TileColor.DARK(12.3));
+        whiteTurn = !pieceColor.equals(PieceColor.WHITE);
     }
 
     
+
+
+
+
+
+
+    public void move(){
+        int x = button.getPiece().getX();
+        int y = button.getPiece().getY();
+        // System.out.println("( " + x + ", " + y + " )");
+
+        if (whiteTurn && pieceColor.equals(PieceColor.WHITE))
+            Board.tile[x][y].getPiece().move(x - 1, y);
+
+        else if (!whiteTurn && pieceColor.equals(PieceColor.BLACK))
+            Board.tile[x][y].getPiece().move(x + 1, y);
+
+        Board.printPieces();
+
+    }
+
 }
 
 
