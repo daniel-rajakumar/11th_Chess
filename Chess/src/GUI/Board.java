@@ -15,6 +15,7 @@ import Assets.Pieces.Knight;
 import Assets.Pieces.Pawn;
 import Assets.Pieces.Queen;
 import Assets.Pieces.Rook;
+import javafx.scene.input.PickResult;
 
 public class Board extends JPanel {
     public static Tile[][] tile = new Tile[8][8];
@@ -39,21 +40,16 @@ public class Board extends JPanel {
     }
 
     void setBoard(){
-        for (int i = 0; i < 8; i++){
-            for (int j = 0; j < 8; j++){
+        for (int i = 0; i < 8; i++)
+            for (int j = 0; j < 8; j++)
                 if ((i+j) % 2 == 0) tile[i][j] = new Tile(i, j, TileColor.LIGHT, null);
                 else                tile[i][j] = new Tile(i, j, TileColor.DARK, null);
-            }
-        }
-
     }
 
     void addBoard(){
-        for (int i = 0; i < 8; i++){
-            for (int j = 0; j < 8; j++){
+        for (int i = 0; i < 8; i++)
+            for (int j = 0; j < 8; j++)
                 add(tile[i][j]);
-            }
-        }
     }
 
     void pieceSetup(){
@@ -118,12 +114,17 @@ public class Board extends JPanel {
     }
 
 
+    private static Piece previousPiece;
+
+    public static Piece getPreviousPiece() { return previousPiece; }
+    public static void setPreviousPiece(Piece previousPiece) { Board.previousPiece = previousPiece; }
+
     void tileAction(){
-        for (int i = 0; i < tile.length; i++){
+        for (int i = 0; i < tile.length; i++)
             for (int j = 0; j < tile.length; j++){
-                tile[i][j].addActionListener(new click());
+                tile[i][j].addActionListener(new Click());
             }
-        }
+        System.out.println("previousPiece: " + previousPiece);
     }
 
     
@@ -132,13 +133,14 @@ public class Board extends JPanel {
 
 }
 
-class click implements ActionListener {
-    ActionEvent e;
+class Click implements ActionListener {
+    private ActionEvent e;
     static boolean whiteTurn = true;
     static boolean showLegalMove = true;
     Tile button;
-    PieceColor pieceColor;
-    TileColor tileColor;
+    private Piece piece;
+    private PieceColor pieceColor, prev_pieceColor;
+    private TileColor tileColor;
     int x, y;
 
     @Override
@@ -148,42 +150,69 @@ class click implements ActionListener {
         this.tileColor = button.getTileColor();
         this.x = button.getTile_x();
         this.y = button.getTile_y();
-        this.pieceColor = button.getPiece().getColor();
 
 
-        if (showLegalMove)  showLegalMove();
-        else                move();
 
-        // if (button.getPiece() == null) return;
 
+
+
+
+        if (Board.getPreviousPiece() != null){
+            this.piece = Board.getPreviousPiece();
+            this.pieceColor = Board.getPreviousPiece().getColor();
+            // System.out.println("previous piece " + Board.getPreviousPiece().getClass().getSimpleName());
+            move();
+        } else {
+            showLegalMove();
+        }
+
+
+
+
+       if (button.getPiece() == null) return;
+         Board.setPreviousPiece(button.getPiece());
     }
 
     
 
     public void showLegalMove(){
         Board.tile[x - 1][y].setTileColor(TileColor.LEGAL);
+        Board.tile[x - 2][y].setTileColor(TileColor.LEGAL);
         showLegalMove = false;
     }
 
 
 
     public void move(){
-        if      ( whiteTurn && pieceColor.equals(PieceColor.WHITE)) moveWhite();
-        else if (!whiteTurn && pieceColor.equals(PieceColor.BLACK)) moveBlack();
+        // System.out.println("pre_piececolor: " + pieceColor);
+        // if      ( whiteTurn && pieceColor.equals(PieceColor.WHITE)) moveWhite();
+        // else if (!whiteTurn && pieceColor.equals(PieceColor.BLACK)) moveBlack();
+
+
+        if (tileColor.equals(TileColor.LEGAL)){
+            System.out.println("two");
+            piece.move(x, y);
+        }
 
         Board.printPieces();
     }
 
     void moveWhite(){
         // Board.tile[x][y].getPiece().move(x - 1, y);
-        if (tileColor.equals(TileColor.LEGAL))
-            Board.tile[x][y].getPiece().move(x - 1, y);
+        System.out.println("tilecolor: " + tileColor);
+        if (tileColor.equals(TileColor.LEGAL)){
+            System.out.println("two");
+            // Board.tile[0][0].getPiece().move(5, 5);
+            piece.move(x, y);
+        }
     }
 
     void moveBlack(){
         // Board.tile[x][y].getPiece().move(x + 1, y);
         Board.tile[x + 1][y].setTileColor(TileColor.LEGAL);
     }
+
+    public Piece getPiece() { return piece; }
 
 }
 
