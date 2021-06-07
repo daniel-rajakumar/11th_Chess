@@ -39,7 +39,6 @@ public class App {
         panel = background;
     }
 
-    
     public static void main(String[] args) throws Exception {
         new App();
 
