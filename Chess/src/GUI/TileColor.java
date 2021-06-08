@@ -8,7 +8,8 @@ import java.awt.*;
 public enum TileColor {
     LIGHT(Color.decode("#EEEED2")), 
     DARK(Color.decode("#769656")),
-    LEGAL(Color.decode("#BBCA2B"));
+    LEGAL_LIGHT(Color.decode("#aab91a")),
+    LEGAL_DARK(Color.decode("#BBCA2B"));
     
     Color color;
 
