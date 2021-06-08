@@ -200,20 +200,16 @@ class Click implements ActionListener {
         changeTileColor(x, y);
 
         if (whiteTurn){ 
-            if (piece instanceof Pawn){
-                
-            } else {
-                changeTileColor(x-1, y);
-            }
-
-
+            for (int i = 0; i < Board.tile.length; i++) 
+                for (int j = 0; j < Board.tile[i].length; j++) 
+                    changeTileColor(i, j);
         } else {
-            changeTileColor(x+1, y);
-            changeTileColor(x+2, y);
+            for (int i = 0; i < Board.tile.length; i++) 
+                for (int j = 0; j < Board.tile[i].length; j++) 
+                    changeTileColor(i, j);
         }
 
 
-        // for (int i = 0; i < Board.tile.length; i++) for (int j = 0; j < Board.tile[i].length; j++) changeTileColor(i, j);
 
         Board.setPreviousPiece(button.getPiece());
     }
