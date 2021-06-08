@@ -50,19 +50,16 @@ class UserClick implements ActionListener {
 
         changeTileColor(tile_x, tile_y);
 
-        if (whiteTurn){ 
-            for (int i = 0; i < Board.tile.length; i++) 
-                for (int j = 0; j < Board.tile[i].length; j++) 
+        // if (whiteTurn){ } else { }
+
+        for (int i = 0; i < Board.tile.length; i++) 
+            for (int j = 0; j < Board.tile[i].length; j++) {
+                Piece current_piece = Board.tile[i][j].getPiece();
+                Piece focused_piece =  Board.tile[tile_x][tile_y].getPiece();
+
+                if (current_piece == null || (current_piece.getColor() != focused_piece.getColor()))
                     changeTileColor(i, j);
-
-        } else {
-            for (int i = 0; i < Board.tile.length; i++) 
-                for (int j = 0; j < Board.tile[i].length; j++) 
-                    changeTileColor(i, j);
-
-        }
-
-
+           }
 
         Board.setFocusedPiece(button.getPiece());
     }
