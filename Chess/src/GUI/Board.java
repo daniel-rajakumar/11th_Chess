@@ -6,6 +6,7 @@ import Assets.*;
 import Assets.Pieces.*;
 
 public class Board extends JPanel {
+
     public static Tile[][] tile = new Tile[8][8];
 
     /**
