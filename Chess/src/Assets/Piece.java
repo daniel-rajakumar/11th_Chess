@@ -12,6 +12,7 @@ public class Piece {
         this.color = color;
     }
 
+
     public void setColor(PieceColor color) { this.color = color; }
 
     public PieceColor getColor() { return color; }
