@@ -1,7 +1,6 @@
 package GUI;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import Assets.*;
 import Assets.Pieces.*;
@@ -9,7 +8,10 @@ import Assets.Pieces.*;
 public class Board extends JPanel {
     public static Tile[][] tile = new Tile[8][8];
 
-    public Board(String text){
+    /**
+     * creates the chess board as JPanel 
+     */
+    public Board(){
        setOpaque(true);
        
        setBackground(Color.red);
@@ -19,15 +21,21 @@ public class Board extends JPanel {
        draw();
     }
 
+    /**
+     *  draws the board
+     */
     void draw(){
-        setBoard();
-        addBoard();
-        pieceSetup();
+        setBoardTile();
+        addBoardTile();
+        pieceStartingSetup();
         printPieces();
         tileAction();
     }
 
-    void setBoard(){
+    /**
+     * set up the chess board with assiging each tile its own color and piece. 
+     */
+    void setBoardTile(){
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
                 if ((i+j) % 2 == 0) tile[i][j] = new Tile(i, j, TileColor.LIGHT, null);
@@ -35,14 +43,20 @@ public class Board extends JPanel {
 
     }
 
-    void addBoard(){
+    /**
+     *  add all the tile to the board.
+     */
+    void addBoardTile(){
         for (int i = 0; i < 8; i++)
             for (int j = 0; j < 8; j++)
                 add(tile[i][j]);
 
     }
 
-    void pieceSetup(){
+    /**
+     * set piece to its starting position. 
+     */
+    void pieceStartingSetup(){
         PieceColor black = PieceColor.BLACK;
         PieceColor white = PieceColor.WHITE;
 
@@ -67,11 +81,14 @@ public class Board extends JPanel {
 
     }
 
+    /**
+     * add chess pieces to the board.
+     */
     public static void printPieces(){
         for (int i = 0; i < tile.length; i++) {
             for (int j = 0; j < tile[i].length; j++) {
 
-                if (tile[i][j].getPiece() != null) tile[i][j].setIcon(getIcons(i, j, 85, 85));
+                if (tile[i][j].getPiece() != null) tile[i][j].setIcon(getPieceIcons(i, j, 85, 85));
                 else                               tile[i][j].setIcon(null);
 
                 if ((i+j) % 2 == 0) tile[i][j].setTileColor(TileColor.LIGHT);
@@ -82,7 +99,15 @@ public class Board extends JPanel {
         }
     }
 
-    public static ImageIcon getIcons(int x, int y, int width, int height){
+    /**
+     * get the image(.png) of the pieces as Icon.
+     * @param x x location of the tile
+     * @param y y location of the tile
+     * @param width width of the image
+     * @param height height of the image
+     * @return image (.png) of the chess piece 
+     */
+    public static ImageIcon getPieceIcons(int x, int y, int width, int height){
         String name = tile[x][y].getPiece().getClass().getSimpleName();
         PieceColor pieceColor = tile[x][y].getPiece().getColor();
 
@@ -106,6 +131,13 @@ public class Board extends JPanel {
         return null;
     }
 
+    /**
+     * return a customized version of the chess piece (custome width, height)
+     * @param name name of the piece to get as image
+     * @param width piece's width
+     * @param height piece's height
+     * @return customized image of Piece.
+     */
     public static ImageIcon pieceImage(String name, int width, int height){
         String path = System.getProperty("user.dir") + "/Chess/res/img/" + name + ".png";
         System.out.println(path);
@@ -115,135 +147,33 @@ public class Board extends JPanel {
     }
 
 
-    private static Piece previousPiece;
+    private static Piece focusedPiece;
 
-    public static Piece getPreviousPiece() { return previousPiece; }
-    public static void setPreviousPiece(Piece previousPiece) { Board.previousPiece = previousPiece; }
+    /**
+     * get focued piece (one which is ready to move)
+     * @return Piece
+     */
+    public static Piece getFocusedPiece() { 
+        return focusedPiece; 
+    }
 
+    /**
+     * set piece to focuse (one which is ready to move)
+     * @param focusedPiece sets the piece which is ready to move
+     */
+    public static void setFocusedPiece(Piece focusedPiece) { 
+        Board.focusedPiece = focusedPiece; 
+    }
+
+    /**
+     * make every tile listen to clicks
+     */
     void tileAction(){
         for (int i = 0; i < tile.length; i++)
             for (int j = 0; j < tile.length; j++){
-                tile[i][j].addActionListener(new Click());
+                tile[i][j].addActionListener(new UserClick());
             }
-
+        
     }
-
-    
-
-
 
 }
-
-class Click implements ActionListener {
-    private ActionEvent e;
-    static boolean whiteTurn = true;
-    static boolean showLegalMove = true;
-    Tile button;
-    private Piece prev_piece, piece;
-    private PieceColor pieceColor, prev_pieceColor;
-    private TileColor tileColor;
-    int x, y;
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        this.e = e;
-        this.button = (Tile) e.getSource();
-        this.tileColor = button.getTileColor();
-        this.piece = button.getPiece();
-        this.x = button.getTile_x();
-        this.y = button.getTile_y();
-
-
-
-
-
-
-
-        if (Board.getPreviousPiece() != null){
-            if (tileColor.equals(TileColor.LEGAL_DARK) || tileColor.equals(TileColor.LEGAL_LIGHT)){
-                this.prev_piece = Board.getPreviousPiece();
-                this.pieceColor = Board.getPreviousPiece().getColor();
-                move();
-            }
-        } else {
-                showLegalMove();
-        }
-
-
-
-
-       if (button.getPiece() == null) return;
-
-        // Board.setPreviousPiece(button.getPiece());
-    }
-
-    
-
-    public void showLegalMove(){
-        if (button.getPiece() == null) return;
-
-        if ( whiteTurn && button.getPiece().getColor().equals(PieceColor.BLACK)) return;
-        if (!whiteTurn && button.getPiece().getColor().equals(PieceColor.WHITE)) return;
-
-        changeTileColor(x, y);
-
-        if (whiteTurn){ 
-            for (int i = 0; i < Board.tile.length; i++) 
-                for (int j = 0; j < Board.tile[i].length; j++) 
-                    changeTileColor(i, j);
-        } else {
-            for (int i = 0; i < Board.tile.length; i++) 
-                for (int j = 0; j < Board.tile[i].length; j++) 
-                    changeTileColor(i, j);
-        }
-
-
-
-        Board.setPreviousPiece(button.getPiece());
-    }
-
-    static void changeTileColor(int x, int y){
-        if (Board.tile[x][y].getTileColor().equals(TileColor.DARK))
-            Board.tile[x][y].setTileColor(TileColor.LEGAL_DARK);
-        else
-            Board.tile[x][y].setTileColor(TileColor.LEGAL_LIGHT);
-    }
-
-
-    public void move(){
-        // print();
-        // System.out.println("pre_piececolor: " + pieceColor);
-        // if      ( whiteTurn && pieceColor.equals(PieceColor.WHITE)) moveWhite();
-        // else if (!whiteTurn && pieceColor.equals(PieceColor.BLACK)) moveBlack();
-        int x1 = prev_piece.getX(), y1 = prev_piece.getY();
-        int x2 = this.x, y2 = this.y;
-
-        // System.out.println("x1: " + prev_piece.getX() + " | y1: " + prev_piece.getY());
-        // System.out.println("x1: " + x + " | y1: " + y);
-
-        if (tileColor.equals(TileColor.LEGAL_DARK) || tileColor.equals(TileColor.LEGAL_LIGHT)){
-            prev_piece.move(x, y);
-        }
-
-
-        Board.printPieces();
-        Board.setPreviousPiece(null);
-        if (x1 != x2 || y1 != y2) whiteTurn = !whiteTurn;
-
-    }
-
-    void print(){
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n");
-        System.out.println("whiteturn: " + whiteTurn);
-        System.out.println("prv_piece: " + prev_piece.getClass().getSimpleName());
-        System.out.println("prev_color: " + pieceColor);
-        System.out.println("\n\n");
-
-    }
-
-    public Piece getPiece() { return prev_piece; }
-
-}
-
-
-
