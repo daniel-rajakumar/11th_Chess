@@ -47,7 +47,7 @@ public class App {
         JPanel background = new JPanel();
         background.setBackground(Color.GRAY);
 
-        background.add(new Board("text"));
+        background.add(new Board());
         panel = background;
     }
 
