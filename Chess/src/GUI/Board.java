@@ -81,7 +81,6 @@ public class Board extends JPanel {
         for (int i = 0; i < tile.length; i++) {
             for (int j = 0; j < tile[i].length; j++) {
                 if (tile[i][j].getPiece() != null){
-                    String name = tile[i][j].getPiece().getClass().getSimpleName() + "";
 
                     // set up black pieces
                     if (tile[i][j].getPiece()
@@ -97,9 +96,10 @@ public class Board extends JPanel {
                         tile[i][j].setForeground(Color.BLUE);
                     } 
 
-                    tile[i][j].setLabel(name);
+                    setIcons(i, j);
+
                 } else {
-                    tile[i][j].setLabel("");
+                    tile[i][j].setIcon(null);
                 }
 
                 if ((i+j) % 2 == 0) tile[i][j].setTileColor(TileColor.LIGHT);
@@ -111,8 +111,35 @@ public class Board extends JPanel {
         }
     }
 
-    public void repaintBoard(){
+    public static void setIcons(int x, int y){
+        String name = tile[x][y].getPiece().getClass().getSimpleName();
+        PieceColor pieceColor = tile[x][y].getPiece().getColor();
+        int width = 85, height = 85;
 
+        if (pieceColor.equals(PieceColor.WHITE)){
+            System.out.println(pieceImage("white_pawn", 1, 1));
+            if (name.equalsIgnoreCase("pawn"))   tile[x][y].setIcon(pieceImage("white_pawn",   width, height));
+            if (name.equalsIgnoreCase("king"))   tile[x][y].setIcon(pieceImage("white_king",   width, height));
+            if (name.equalsIgnoreCase("queen"))  tile[x][y].setIcon(pieceImage("white_queen",  width, height));
+            if (name.equalsIgnoreCase("bishop")) tile[x][y].setIcon(pieceImage("white_bishop", width, height));
+            if (name.equalsIgnoreCase("knight")) tile[x][y].setIcon(pieceImage("white_knight", width, height));
+            if (name.equalsIgnoreCase("rook"))   tile[x][y].setIcon(pieceImage("white_rook",   width, height));
+
+        } else if (pieceColor.equals(PieceColor.BLACK)){
+            if (name.equalsIgnoreCase("pawn"))   tile[x][y].setIcon(pieceImage("black_pawn",   width, height));
+            if (name.equalsIgnoreCase("king"))   tile[x][y].setIcon(pieceImage("black_king",   width, height));
+            if (name.equalsIgnoreCase("queen"))  tile[x][y].setIcon(pieceImage("black_queen",  width, height));
+            if (name.equalsIgnoreCase("bishop")) tile[x][y].setIcon(pieceImage("black_bishop", width, height));
+            if (name.equalsIgnoreCase("knight")) tile[x][y].setIcon(pieceImage("black_knight", width, height));
+            if (name.equalsIgnoreCase("rook"))   tile[x][y].setIcon(pieceImage("black_rook",   width, height));
+        }
+
+    }
+
+    public static ImageIcon pieceImage(String name, int width, int height){
+        ImageIcon icon = new ImageIcon("res/img/" + name + ".png");
+        Image img = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(img);
     }
 
 
@@ -126,7 +153,7 @@ public class Board extends JPanel {
             for (int j = 0; j < tile.length; j++){
                 tile[i][j].addActionListener(new Click());
             }
-        System.out.println("previousPiece: " + previousPiece);
+
     }
 
     
@@ -225,8 +252,7 @@ class Click implements ActionListener {
 
         Board.printPieces();
         Board.setPreviousPiece(null);
-        if (x1 != x2 || y1 != y2)
-            whiteTurn = !whiteTurn;
+        if (x1 != x2 || y1 != y2) whiteTurn = !whiteTurn;
 
     }
 
