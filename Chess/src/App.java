@@ -53,7 +53,7 @@ public class App {
 
     /**
      * @param args unused
-     * @throws Exception
+     * @throws Exception on input error
      */
     public static void main(String[] args) throws Exception {
         new App();
