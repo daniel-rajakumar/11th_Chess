@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.annotation.processing.SupportedSourceVersion;
 import javax.swing.*;
 
 import Assets.Piece;
@@ -16,7 +15,6 @@ import Assets.Pieces.Knight;
 import Assets.Pieces.Pawn;
 import Assets.Pieces.Queen;
 import Assets.Pieces.Rook;
-import javafx.scene.input.PickResult;
 
 public class Board extends JPanel {
     public static Tile[][] tile = new Tile[8][8];
@@ -162,7 +160,7 @@ class Click implements ActionListener {
 
 
         if (Board.getPreviousPiece() != null){
-            if (tileColor.equals(TileColor.LEGAL)){
+            if (tileColor.equals(TileColor.LEGAL_DARK) || tileColor.equals(TileColor.LEGAL_LIGHT)){
                 this.piece = Board.getPreviousPiece();
                 this.pieceColor = Board.getPreviousPiece().getColor();
                 move();
@@ -188,16 +186,25 @@ class Click implements ActionListener {
         if (!whiteTurn && button.getPiece().getColor().equals(PieceColor.WHITE)) return;
 
         if (whiteTurn){ 
-            Board.tile[x - 1][y].setTileColor(TileColor.LEGAL);
-            Board.tile[x - 2][y].setTileColor(TileColor.LEGAL);
+            for (int i = 0; i < Board.tile.length; i++) 
+                for (int j = 0; j < Board.tile[i].length; j++) 
+                    changeTileColor(i, j);
+                
         } else {
-            Board.tile[x + 1][y].setTileColor(TileColor.LEGAL);
-            Board.tile[x + 2][y].setTileColor(TileColor.LEGAL);
+            for (int i = 0; i < Board.tile.length; i++) 
+                for (int j = 0; j < Board.tile[i].length; j++) 
+                    changeTileColor(i, j);
         }
 
         Board.setPreviousPiece(button.getPiece());
     }
 
+    void changeTileColor(int x, int y){
+        if (Board.tile[x][y].getTileColor().equals(TileColor.DARK))
+            Board.tile[x][y].setTileColor(TileColor.LEGAL_DARK);
+        else
+            Board.tile[x][y].setTileColor(TileColor.LEGAL_LIGHT);
+    }
 
 
     public void move(){
@@ -205,15 +212,21 @@ class Click implements ActionListener {
         // System.out.println("pre_piececolor: " + pieceColor);
         // if      ( whiteTurn && pieceColor.equals(PieceColor.WHITE)) moveWhite();
         // else if (!whiteTurn && pieceColor.equals(PieceColor.BLACK)) moveBlack();
+        int x1 = piece.getX(), y1 = piece.getY();
+        int x2 = this.x, y2 = this.y;
 
+        System.out.println("x1: " + piece.getX() + " | y1: " + piece.getY());
+        System.out.println("x1: " + x + " | y1: " + y);
 
-        if (tileColor.equals(TileColor.LEGAL)){
+        if (tileColor.equals(TileColor.LEGAL_DARK) || tileColor.equals(TileColor.LEGAL_LIGHT)){
             piece.move(x, y);
         }
 
+
         Board.printPieces();
         Board.setPreviousPiece(null);
-        whiteTurn = !whiteTurn;
+        if (x1 != x2 || y1 != y2)
+            whiteTurn = !whiteTurn;
 
     }
 
