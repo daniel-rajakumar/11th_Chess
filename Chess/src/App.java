@@ -2,23 +2,32 @@ import javax.swing.*;
 // import javax.awt.*;
 
 import GUI.Board;
-import GUI.SideBar;
 
 import java.awt.*;
 
 public class App {
     private JFrame frame;
-    private JPanel panel, sidebarLeft, sidebarRight;
+    private JPanel panel;
 
+    /**
+     * run the GUI version of the program
+     */
     App(){
         GUI();
     }
 
+
+    /**
+     * call the frame and panel. 
+     */
     private void GUI(){
         panel();
         frame();
     }
 
+    /**
+     * creates the frame of the game (game window)
+     */
     private void frame(){
         frame = new JFrame("CHESS");
         frame.setLayout(new BorderLayout());
@@ -31,6 +40,9 @@ public class App {
         frame.setVisible(true);
     }
 
+    /**
+     * creats a panel(includes the chess board) inside the frame.
+     */
     private void panel(){
         JPanel background = new JPanel();
         background.setBackground(Color.GRAY);
@@ -39,6 +51,10 @@ public class App {
         panel = background;
     }
 
+    /**
+     * @param args unused
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         new App();
     }

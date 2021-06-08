@@ -2,9 +2,6 @@ package GUI;
 
 import java.awt.*;
 
-
-
-
 public enum TileColor {
     LIGHT(Color.decode("#EEEED2")), 
     DARK(Color.decode("#769656")),
@@ -13,10 +10,18 @@ public enum TileColor {
     
     Color color;
 
+    /**
+     * creates a tile
+     * @param color
+     */
     TileColor(Color color){
         this.color = color;
     }
 
+    /**
+     * get the color of the tile.
+     * @return tile's color
+     */
     public Color getColor() { return color; }
 }
 

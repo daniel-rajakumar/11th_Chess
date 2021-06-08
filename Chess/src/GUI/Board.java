@@ -1,24 +1,13 @@
 package GUI;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.event.*;
 import javax.swing.*;
-
-import Assets.Piece;
-import Assets.PieceColor;
-import Assets.PieceType;
-import Assets.Pieces.Bishop;
-import Assets.Pieces.King;
-import Assets.Pieces.Knight;
-import Assets.Pieces.Pawn;
-import Assets.Pieces.Queen;
-import Assets.Pieces.Rook;
+import Assets.*;
+import Assets.Pieces.*;
 
 public class Board extends JPanel {
     public static Tile[][] tile = new Tile[8][8];
-
 
     public Board(String text){
        setOpaque(true);
@@ -79,7 +68,6 @@ public class Board extends JPanel {
     }
 
     public static void printPieces(){
-        // System.out.println("hello");
         for (int i = 0; i < tile.length; i++) {
             for (int j = 0; j < tile[i].length; j++) {
 

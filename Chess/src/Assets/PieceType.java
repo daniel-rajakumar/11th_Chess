@@ -10,6 +10,10 @@ public enum PieceType {
 
     int value;
 
+    /**
+     * constructor for creating a PieceType 
+     * @param value the game value of the chess piece (example: rook = 5, pawn = 1)
+     */
     PieceType(int value){
         this.value = value;
     }
