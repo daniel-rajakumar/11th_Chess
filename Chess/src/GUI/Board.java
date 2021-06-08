@@ -8,7 +8,6 @@ import javax.swing.*;
 
 import Assets.Piece;
 import Assets.PieceColor;
-import Assets.PieceType;
 import Assets.Pieces.Bishop;
 import Assets.Pieces.King;
 import Assets.Pieces.Knight;
@@ -80,60 +79,40 @@ public class Board extends JPanel {
         // System.out.println("hello");
         for (int i = 0; i < tile.length; i++) {
             for (int j = 0; j < tile[i].length; j++) {
-                if (tile[i][j].getPiece() != null){
 
-                    // set up black pieces
-                    if (tile[i][j].getPiece()
-                                .getColor()
-                                .equals(PieceColor.BLACK)){
-                        tile[i][j].setForeground(Color.BLACK);
-                    } 
-
-                    // set up white pieces
-                    if (tile[i][j].getPiece()
-                                .getColor()
-                                .equals(PieceColor.WHITE)){
-                        tile[i][j].setForeground(Color.BLUE);
-                    } 
-
-                    setIcons(i, j);
-
-                } else {
-                    tile[i][j].setIcon(null);
-                }
+                if (tile[i][j].getPiece() != null) tile[i][j].setIcon(getIcons(i, j, 85, 85));
+                else                               tile[i][j].setIcon(null);
 
                 if ((i+j) % 2 == 0) tile[i][j].setTileColor(TileColor.LIGHT);
                 else                tile[i][j].setTileColor(TileColor.DARK);
-
 
             }
 
         }
     }
 
-    public static void setIcons(int x, int y){
+    public static ImageIcon getIcons(int x, int y, int width, int height){
         String name = tile[x][y].getPiece().getClass().getSimpleName();
         PieceColor pieceColor = tile[x][y].getPiece().getColor();
-        int width = 85, height = 85;
 
         if (pieceColor.equals(PieceColor.WHITE)){
-            System.out.println(pieceImage("white_pawn", 1, 1));
-            if (name.equalsIgnoreCase("pawn"))   tile[x][y].setIcon(pieceImage("white_pawn",   width, height));
-            if (name.equalsIgnoreCase("king"))   tile[x][y].setIcon(pieceImage("white_king",   width, height));
-            if (name.equalsIgnoreCase("queen"))  tile[x][y].setIcon(pieceImage("white_queen",  width, height));
-            if (name.equalsIgnoreCase("bishop")) tile[x][y].setIcon(pieceImage("white_bishop", width, height));
-            if (name.equalsIgnoreCase("knight")) tile[x][y].setIcon(pieceImage("white_knight", width, height));
-            if (name.equalsIgnoreCase("rook"))   tile[x][y].setIcon(pieceImage("white_rook",   width, height));
+            if (name.equalsIgnoreCase("pawn"))   return pieceImage("white_pawn",   width, height);
+            if (name.equalsIgnoreCase("king"))   return pieceImage("white_king",   width, height);
+            if (name.equalsIgnoreCase("queen"))  return pieceImage("white_queen",  width, height);
+            if (name.equalsIgnoreCase("bishop")) return pieceImage("white_bishop", width, height);
+            if (name.equalsIgnoreCase("knight")) return pieceImage("white_knight", width, height);
+            if (name.equalsIgnoreCase("rook"))   return pieceImage("white_rook",   width, height);
 
         } else if (pieceColor.equals(PieceColor.BLACK)){
-            if (name.equalsIgnoreCase("pawn"))   tile[x][y].setIcon(pieceImage("black_pawn",   width, height));
-            if (name.equalsIgnoreCase("king"))   tile[x][y].setIcon(pieceImage("black_king",   width, height));
-            if (name.equalsIgnoreCase("queen"))  tile[x][y].setIcon(pieceImage("black_queen",  width, height));
-            if (name.equalsIgnoreCase("bishop")) tile[x][y].setIcon(pieceImage("black_bishop", width, height));
-            if (name.equalsIgnoreCase("knight")) tile[x][y].setIcon(pieceImage("black_knight", width, height));
-            if (name.equalsIgnoreCase("rook"))   tile[x][y].setIcon(pieceImage("black_rook",   width, height));
+            if (name.equalsIgnoreCase("pawn"))   return pieceImage("black_pawn",   width, height);
+            if (name.equalsIgnoreCase("king"))   return pieceImage("black_king",   width, height);
+            if (name.equalsIgnoreCase("queen"))  return pieceImage("black_queen",  width, height);
+            if (name.equalsIgnoreCase("bishop")) return pieceImage("black_bishop", width, height);
+            if (name.equalsIgnoreCase("knight")) return pieceImage("black_knight", width, height);
+            if (name.equalsIgnoreCase("rook"))   return pieceImage("black_rook",   width, height);
         }
 
+        return null;
     }
 
     public static ImageIcon pieceImage(String name, int width, int height){
