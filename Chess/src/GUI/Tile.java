@@ -28,8 +28,8 @@ public class Tile extends JButton {
     }
 
     /**
-     *  set tile's color
-     * @param color
+     *  set tile's background color
+     * @param color tile's color
      */
     public void setColor(TileColor color) {
         this.color = color;
@@ -44,7 +44,7 @@ public class Tile extends JButton {
     }
 
     /**
-     * get piece on the tile
+     * get the piece on the tile
      * @return Piece
      */
     public Piece getPiece() {
