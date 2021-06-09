@@ -64,8 +64,8 @@ public class Board extends JPanel {
         tile[0][0].setPiece(new Rook(black));
         tile[0][1].setPiece(new Knight(black));
         tile[0][2].setPiece(new Bishop(black));
-        tile[0][3].setPiece(new King(black));
-        tile[0][4].setPiece(new Queen(black));
+        tile[0][3].setPiece(new Queen(black));
+        tile[0][4].setPiece(new King(black));
         tile[0][5].setPiece(new Bishop(black));
         tile[0][6].setPiece(new Knight(black));
         tile[0][7].setPiece(new Rook(black));
@@ -74,8 +74,8 @@ public class Board extends JPanel {
         tile[7][0].setPiece(new Rook(white));
         tile[7][1].setPiece(new Knight(white));
         tile[7][2].setPiece(new Bishop(white));
-        tile[7][3].setPiece(new King(white));
-        tile[7][4].setPiece(new Queen(white));
+        tile[7][3].setPiece(new Queen(white));
+        tile[7][4].setPiece(new King(white));
         tile[7][5].setPiece(new Bishop(white));
         tile[7][6].setPiece(new Knight(white));
         tile[7][7].setPiece(new Rook(white));
@@ -141,7 +141,6 @@ public class Board extends JPanel {
      */
     public static ImageIcon pieceImage(String name, int width, int height){
         String path = System.getProperty("user.dir") + "/Chess/res/img/" + name + ".png";
-        System.out.println(path);
         ImageIcon icon = new ImageIcon(path);
         Image img = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(img);
