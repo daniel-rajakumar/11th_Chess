@@ -13,7 +13,7 @@ t
     [Parent] Piece -> [Child] Pawn, Knight, Bishop, Rook, King, Queen. 
 
 ### Game status:
-#### Jun 8, 2021: `players can move their pieces on any square (excluding squares which is occupied with its own royalist).`
+#### Jun 8, 2021: `players can move their pieces to any square (excluding squares which is occupied with its own royalist).`
 
 ![alt tag](chessBoard.png)
 
