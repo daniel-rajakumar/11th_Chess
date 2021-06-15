@@ -1,3 +1,4 @@
+NOTE: As far now any Pieces can move to any square. So Don't cheat. Unfortunately you can't castle. other than that, enjoy.
 
 `GUI UI inspired from:` https://www.chess.com
 
